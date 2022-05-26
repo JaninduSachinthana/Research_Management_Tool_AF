@@ -21,6 +21,12 @@ import EmailVerify from './src/pages/Emailverify/EmailVerify';
 import Login from './src/pages/Login';
 import StudentViewAssignment from './src/pages/student/assignmentView';
 import ChatMain from './src/pages/chat/chat';
+import GroupEdit from './src/pages/group/Group_Edit';
+import TopicRegister from './src/pages/student/topicReg';
+import TopicRegister from './src/pages/topic/Topic_register';
+import TopicViewStd from './src/pages/topic/Topic_view_std';
+import TopicView from './src/pages/topic/Topic_View';
+
 export default class App extends React.Component {
 
  constructor(props) {
@@ -41,6 +47,7 @@ export default class App extends React.Component {
             <Route path="/Admin/ViewAssignment" element={<ViewAssignment />} />           
             <Route path="/Admin/AddSchema" element={<AddSchema />} />
             <Route path="/Admin/GroupView" element={<GroupView />} />
+            <Route path="/Admin/Topic_View" element={<TopicView/>} />
                         
             <Route path="/StudentReg" element={<StudentReg />} />
             <Route path="/StaffRegister" element={<StaffRegister />} />
@@ -54,6 +61,10 @@ export default class App extends React.Component {
             <Route path="/Student/AllGroup" element={<AllForUser />} />
             <Route path="/Student/GroupAdd" element={<GroupReg />} />
             <Route path="/Student/ViewAssignment" element={<StudentViewAssignment />} />
+            <Route path="/Student/GroupView" element={<GroupView />} />
+            <Route path="/Student/Group_Edit/:id" element={<GroupEdit />} />
+            <Route path="/Student/Topic_register" element={<TopicRegister/>} />
+            <Route path="/Student/Topic_view_std" element={<TopicViewStd/>} />
 
             <Route path="/Panel" element={<PanelMain />} />
 

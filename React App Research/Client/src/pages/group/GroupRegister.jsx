@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-//import './../../component/css/Group_view.css';
+import './Group_view.css';
 import axios from "axios";
+import Navbar from '../student/nav-bar';
 
 function GroupReg() {
 
@@ -11,8 +12,7 @@ function GroupReg() {
     memberone : "",
     membertwo: "",
     mamberthree: ""
-    
-  });
+ });
 
   const handleAddData = (e) => {
     const { name, value } = e.target
@@ -50,6 +50,8 @@ function GroupReg() {
     return(
     
 <div className="my">
+
+<Navbar/>
 
 <div class="form-container-group">
         

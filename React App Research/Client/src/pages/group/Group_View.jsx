@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-//import "./../../component/css/Group_view.css";
+import "./Group_view.css";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import { Grid, Button } from '@material-ui/core';
 import axios from 'axios';
+import Navbar from '../student/nav-bar';
 // import {useHistory} from 'react-router-dom';
 
 
@@ -44,8 +45,8 @@ function GroupView() {
    
 
   const updategroupNavigate = (id) => {
-   window.location = `/Group_Edit/${id}`;
-    // history.push(path);
+   window.location = `/Student/Group_Edit/${id}`;
+   
 }
 
 
@@ -56,6 +57,7 @@ function GroupView() {
 
     return(
         <div>
+          <Navbar/>
      <div class="tablealign-inv">
                   <table class="table-Inv">
 

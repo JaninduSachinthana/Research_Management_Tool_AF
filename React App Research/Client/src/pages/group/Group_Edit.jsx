@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useHistory, useParams } from "react-router-dom";
+import './Group_view.css';
+import {  useParams } from "react-router-dom";
+import Navbar from '../student/nav-bar';
 
 function GroupEdit() {
 
-    const history = useHistory();
+  
 
     const [groupid, setgroupid] = useState('');
     const [department, setdepartment] = useState('');
@@ -49,7 +51,7 @@ function GroupEdit() {
       axios.put(`http://localhost:8088/group/edit/${params.id}`,updateData)
         .then((response) => {
           console.log("updated successfully");
-          history.push("/Group_View");
+          window.location = `/Student/GroupView`;
         })
         .catch((error) => {
           console.log(error);
@@ -57,15 +59,16 @@ function GroupEdit() {
     }
 
 
-
-
     return ( 
         <div>
 
-<div class="form-container-group">
+<Navbar/>
+
+   <div class="form-container-group">
         
         <form class="Groupreg-form-group">
-        <h2 class="group-title">Edit Group </h2>
+          
+          <h2 class="group-title">Edit Group </h2>
          
         <label className='lbl-group'>Group ID</label>
           <input

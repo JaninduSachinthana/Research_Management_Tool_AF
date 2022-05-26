@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-//import './../../component/css/Topic.css'
 import axios from "axios";
+import './Topic.css'
+import Navbar from '../student/nav-bar';
+import Image from '../../component/images/1.jpg';
+import { Container } from "@mui/material";
 
 function TopicRegister() {
 
@@ -27,7 +30,7 @@ function TopicRegister() {
 
     console.log(topicdata);
            
-    axios.post("http://localhost:8088/topic/add", topicdata )
+    axios.post("http://localhost:8088/topicreg/add", topicdata )
     .then((res) => 
       alert(res.data)
     )
@@ -38,15 +41,16 @@ function TopicRegister() {
 
   }
 
-  
-
-  
-
 
 
     return(
         <div>
+         
+            
 
+<Navbar/>
+
+<div className="topic_page">
 <div class="form-container-topic">
         
         <form class="topic-form-title">
@@ -110,8 +114,10 @@ function TopicRegister() {
         </form>
       </div>
      
-
+      </div>
         </div>
+
+      
     )
 }
 
