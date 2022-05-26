@@ -20,7 +20,7 @@ import ViewAssignment from './src/pages/admin/viewAssignment';
 import EmailVerify from './src/pages/Emailverify/EmailVerify';
 import Login from './src/pages/Login';
 import StudentViewAssignment from './src/pages/student/assignmentView';
-
+import ChatMain from './src/pages/chat/chat';
 export default class App extends React.Component {
 
  constructor(props) {
@@ -58,6 +58,7 @@ export default class App extends React.Component {
             <Route path="/Panel" element={<PanelMain />} />
 
             <Route path="/Supervisor" element={<SupervisorMain />} />
+            <Route path="/Chat" element={<ChatMain />} />
             
          </Routes>
                      
