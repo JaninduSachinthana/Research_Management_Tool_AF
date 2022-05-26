@@ -43,6 +43,34 @@ export default class AddSchema extends React.Component {
     onChageSelected = (e) => {
         this.setState({asgDep: e.target.value});
     }
+    onSubmit = async (e) => {
+        e.preventDefault();
+
+        let formData = new FormData();
+        formData.append('schema', this.state.schema);
+        formData.append('asgName', this.state.asgName);
+        formData.append('asgDep', this.state.asgDep);
+
+
+        await axios.post("http://localhost:8088/", formData)
+        .then((res)=> this.setState({
+            message: res.data,
+            type:"success",
+            open: true
+        }))
+        .catch((err) => this.setState({
+            message: err.message,
+            type:"error",
+            open: true
+        }))
+        .finally(() => window.location = '/Admin/ViewAssignment');
+    }
+
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
+    }
 
     render() {
         return (

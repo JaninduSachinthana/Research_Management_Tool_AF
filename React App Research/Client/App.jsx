@@ -58,8 +58,7 @@ export default class App extends React.Component {
             <Route path="/Panel" element={<PanelMain />} />
 
             <Route path="/Supervisor" element={<SupervisorMain />} />
-            <Route path="/Chat" element={<ChatMain />} />
-            
+            <Route path="/Chat" element={<ChatMain />} />  
          </Routes>
                      
 
