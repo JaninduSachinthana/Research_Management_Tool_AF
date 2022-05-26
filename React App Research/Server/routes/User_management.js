@@ -63,4 +63,73 @@ router.get("/:id/verify/:token/", async (req, res) => {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
+//create the update route
+router.put("upadate/:id", async (req, res) => {
+	try {
+		const { error } = validate(req.body);
+		if (error)
+			return res.status(400).send({ message: error.details[0].message });
+
+		const salt = await bcrypt.genSalt(Number(process.env.SALT));
+		const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+		const user = await User.findByIdAndUpdate(
+			req.params.id,
+			{
+				...req.body,
+				password: hashPassword,
+			},
+			{ new: true }
+		);
+		if (!user)
+			return res.status(404).send({ message: "User not found" });
+
+		res.status(200).send({ message: "User updated successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
+
+
+//delete the user
+router.delete("/:id", async (req, res) => {
+	try {
+		const user = await User.findByIdAndDelete(req.params.id);
+		if (!user)
+			return res.status(404).send({ message: "User not found" });
+
+		res.status(200).send({ message: "User deleted successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
+//get the user
+router.get("/user/:id", async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id);
+		if (!user)
+			return res.status(404).send({ message: "User not found" });
+
+		res.status(200).send(user);
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
+//get all the users
+router.get("/", async (req, res) => {
+	try {
+		const users = await User.find({});
+		if (!users)
+			return res.status(404).send({ message: "Users not found" });
+
+		res.status(200).send(users);
+	} catch (error) {
+		res.status(500).send({ message: "Internal Server Error" });
+	}
+});
+
 module.exports = router
