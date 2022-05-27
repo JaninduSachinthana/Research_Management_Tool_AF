@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const Research = new schema({
+    AsgID: {
+        type : String,
+        required : true
+    },
+    asgName: {
+        type : String,
+        required : true
+    },
     stdID: {
         type : String,
         required : true

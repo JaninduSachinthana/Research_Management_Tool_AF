@@ -22,6 +22,7 @@ import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 
 export default class Navbar extends React.Component {
 
@@ -187,6 +188,20 @@ export default class Navbar extends React.Component {
               <ListItemIcon>
                 Research Topics Evaluate
               </ListItemIcon>
+              <ListItemText />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>          
+          <ListItem disablePadding>
+            <ListItemButton
+                component="a" 
+                href="/Supervisor/researchView" >
+              <ListItemIcon>
+                <ArticleRoundedIcon fontSize="small" />                
+              </ListItemIcon>
+                Research Submission Evaluate
               <ListItemText />
             </ListItemButton>
           </ListItem>
