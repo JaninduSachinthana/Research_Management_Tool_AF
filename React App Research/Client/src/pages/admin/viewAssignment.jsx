@@ -36,6 +36,15 @@ import IconButton from '@mui/material/IconButton';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import ListItemText from '@mui/material/ListItemText';
+import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
 
 export default class ViewAssignment extends React.Component {
 
@@ -54,7 +63,10 @@ export default class ViewAssignment extends React.Component {
             id:"",
             message:"",
             type:"",
-            open:false
+            open:false,
+            viewSub: false,
+            researches:[],
+            url:""
         }
     }
 
@@ -158,6 +170,39 @@ export default class ViewAssignment extends React.Component {
         })
     }
 
+    viewSubOpen = () => {    
+        this.setState({
+            viewSub: true
+        })
+        
+    };
+    
+    viewSubClose = () => {
+        this.setState({
+            viewSub: false
+        })
+    };
+
+    onViewSubmission = async (id) => {
+        this.viewSubOpen();
+
+        console.log(id);
+        await axios.get(`http://localhost:8088/research/view/${id}`)
+        .then((res) => {this.setState({
+            researches : res.data
+        }); console.log(res.data)})
+        .catch((err) => console.error(err.message))
+    }
+
+    onDownload = async  (id) => {
+        await axios.get(`http://localhost:8088/research/download/${id}`)
+        .then((res) => {this.setState({
+            url : res.data
+        }); console.log(res.data)})
+        .catch((err) => console.error(err.message))
+        .finally(() => {window.location = `${this.state.url}`})
+    }
+
     render() {
         return (
             <>
@@ -225,9 +270,22 @@ export default class ViewAssignment extends React.Component {
                                 <Button 
                                     variant="contained" 
                                     endIcon={<DeleteIcon />}
-                                    onClick={() => this.onDelete(item._id)}
-                                    color="error" >
+                                    onClick={() => this.onDelete(item._id)}                                    
+                                    color="error"
+                                    sx={{ 
+                                        marginRight:"100px"
+                                    }}  >
                                     Remove
+                                </Button>
+                                <Button 
+                                    variant="contained" 
+                                    startIcon={<AssignmentRoundedIcon />}
+                                    color="primary"
+                                    onClick={() => this.onViewSubmission(item._id)}
+                                    sx={{ 
+                                        marginLeft:"200px"
+                                    }} >
+                                    View Submissions
                                 </Button>
                             </Stack>
                             </AccordionDetails>
@@ -375,6 +433,64 @@ export default class ViewAssignment extends React.Component {
                             
                             </Box>
                         </Modal>
+
+                        <Modal 
+                            open={this.state.viewSub}
+                            onClose={this.viewSubClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description">
+
+                            <Box sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: 900,
+                                bgcolor: 'background.paper',
+                                border: '5px solid black',
+                                boxShadow: 24,
+                                backgroundColor:"lightgray",
+                                p: 4
+                            }}>
+                                <TableContainer component={Paper}>
+                                    <Table size="small" sx={{ minWidth: 700, border: '2px solid black', }} aria-label="customized table">
+                                        <TableHead>
+                                        <TableRow sx={{backgroundColor:"gray", height:"10px"}}>
+                                            <TableCell align="center" sx={{fontSize:"20px", fontWeight:"bold"}}>Assignment Name </TableCell>
+                                            <TableCell align="center" sx={{fontSize:"20px", fontWeight:"bold"}}>Student ID</TableCell>
+                                            <TableCell align="center" sx={{fontSize:"20px", fontWeight:"bold"}}>Group ID</TableCell>
+                                            <TableCell align="center" sx={{fontSize:"20px", fontWeight:"bold"}}>Download Research</TableCell>
+                                        </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                        {this.state.researches.map((item) => (
+                                            <TableRow hover={true} sx={{height:"10px"}}>
+                                            <TableCell align="center" sx={{fontSize:"20px"}}> {item.asgName} </TableCell>
+                                            <TableCell align="center" sx={{fontSize:"20px"}}> {item.stdID} </TableCell>
+                                            <TableCell align="center" sx={{fontSize:"20px"}}> {item.grpID} </TableCell>
+                                            <TableCell align="center">
+                                                <ListItemButton
+                                                    onClick={() => this.onDownload(item._id)}
+                                                    sx={{ 
+                                                        marginTop:"10px"
+                                                    }} >
+                                                    <ListItemIcon>
+                                                        <DownloadOutlinedIcon 
+                                                            fontSize="large"
+                                                            color="primary" />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="Download" />
+                                                </ListItemButton>  
+                                            </TableCell>
+                                            </TableRow>
+                                        ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                
+                            </Box>
+                        </Modal>
+
                         <Snackbar open={this.state.open} autoHideDuration={2000} onClose={this.handleClose}>
                         <Alert onClose={this.handleClose} severity={this.state.type} sx={{ width: '100%' }}>
                             {this.state.message}

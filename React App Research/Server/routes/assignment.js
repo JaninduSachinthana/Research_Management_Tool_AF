@@ -14,7 +14,7 @@ router.post('/add', upload.single('template'), async (req, res) => {
         }
 
         const result = await cloudinary.uploader.upload(req.file.path, {
-             resource_type: "auto", 
+             resource_type: "raw", 
              folder : "Template",
              public_id: req.file.originalname
          });

@@ -26,6 +26,7 @@ import TopicRegister from './src/pages/student/topicReg';
 import TopicRegister from './src/pages/topic/Topic_register';
 import TopicViewStd from './src/pages/topic/Topic_view_std';
 import TopicView from './src/pages/topic/Topic_View';
+import ViewAssignmentSubmission from './src/pages/staff/Supervisors/submissionView';
 
 export default class App extends React.Component {
 
@@ -67,10 +68,12 @@ export default class App extends React.Component {
             <Route path="/Student/Topic_view_std" element={<TopicViewStd/>} />
 
             <Route path="/Panel" element={<PanelMain />} />
+            <Route path="/Panel/researchView" element={<ViewAssignmentSubmission />} />
 
             <Route path="/Supervisor" element={<SupervisorMain />} />
             <Route path="/Chat" element={<ChatMain />} />
-            
+            <Route path="/Supervisor/researchView" element={<ViewAssignmentSubmission />} />
+
          </Routes>
                      
 
